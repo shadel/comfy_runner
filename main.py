@@ -5,12 +5,12 @@ from .inf import ComfyRunner
 
 runner = ComfyRunner()
 output = runner.predict(
-    workflow_input="examples/txt2img/workflow_api.json",
+    workflow_input="runner/examples/txt2img/workflow_api.json",
     file_path_list=[
-        "./examples/vid2vid/boy_sunshine.png",
-        "./examples/vid2vid/king_dark.png",
+        "./runner/examples/vid2vid/boy_sunshine.png",
+        "./runner/examples/vid2vid/king_dark.png",
     ],
-    stop_server_after_completion=True,
+    # stop_server_after_completion=True,
 )
 
 print("final output: ", output)

@@ -1,0 +1,33 @@
+version: "3.8"
+# Compose file build variables set in .env
+services:
+
+  comfy-runner-serverless:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: shadel/comfy-runner-serverless
+    
+    ## For Nvidia GPU's - You probably want to uncomment this
+    deploy:
+     resources:
+       reservations:
+         devices:
+           - driver: nvidia
+             count: all
+             capabilities: [gpu]
+    
+    devices:
+      - "/dev/dri:/dev/dri"
+    volumes:
+      - ../local/output:/app/output
+      - ../local/ComfyUI:/app/ComfyUI
+      - .:/app/runner
+      # - ./local/comfyui_launcher_projects2:/app/server/projects
+    # ports:
+    #     - 14000-14100:4000-4100
+    profiles:
+      - runner
+    entrypoint: "bash"
+    tty: true
+    
