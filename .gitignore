@@ -16,3 +16,4 @@ venv
 ComfyUI/
 test.py
 output/
+build.logs

@@ -19,15 +19,15 @@ services:
     
     devices:
       - "/dev/dri:/dev/dri"
+
     volumes:
-      - ../local/output:/app/output
-      - ../local/ComfyUI:/app/ComfyUI
+      - ../local:/app
       - .:/app/runner
       # - ./local/comfyui_launcher_projects2:/app/server/projects
     # ports:
     #     - 14000-14100:4000-4100
     profiles:
       - runner
-    entrypoint: "bash"
+    # entrypoint: "bash"
     tty: true
     

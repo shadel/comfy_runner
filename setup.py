@@ -10,14 +10,6 @@ output = runner.setup_workflow(
         "./runner/examples/vid2vid/boy_sunshine.png",
         "./runner/examples/vid2vid/king_dark.png",
     ],
-    stop_server_after_completion=True,
-)
-output = runner.predict(
-    workflow_input="runner/examples/txt2img/workflow_api.json",
-    file_path_list=[
-        "./runner/examples/vid2vid/boy_sunshine.png",
-        "./runner/examples/vid2vid/king_dark.png",
-    ],
     # stop_server_after_completion=True,
 )
 
