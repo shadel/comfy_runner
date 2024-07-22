@@ -24,7 +24,8 @@ WORKDIR /app
 COPY requirements.txt /app/runner/requirements.txt
 RUN pip install -r /app/runner/requirements.txt
 
-COPY ./.git /app/runner/.git
+# COPY ./.git /app/runner/.git
+RUN mkdir /app/runner/.git
 COPY ./data /app/runner/data
 COPY ./examples /app/runner/examples
 COPY ./utils /app/runner/utils
@@ -35,5 +36,10 @@ COPY ./setup.py /app/runner/setup.py
 
 RUN python3 -m runner.setup
 
-COPY ./setup.py /app/runner/setup.py
-CMD ["python3", "-m", "runner.main"]
+# COPY ./setup.py /app/runner/setup.py
+RUN pip install --no-cache-dir runpod
+
+COPY ./rp_handler.py /app/runner/rp_handler.py
+COPY ./test_input.json /app/test_input.json
+
+CMD ["python3", "-u", "runner/rp_handler.py"]
