@@ -1,15 +1,31 @@
 import runpod
+from .serverless_tools.input_manager import InputManager
+from .inf import ComfyRunner
 
+input_m = InputManager("/app/inputs")
 
-def process_input(input):
+def run_wf(workflow_input, file_path_list):
+
+    runner = ComfyRunner()
+    output = runner.predict(
+        workflow_input,
+        file_path_list,
+        stop_server_after_completion=True,
+    )
+    print("final output: ", output)
+    return output
+
+def process_input(runid, input):
     """
     Execute the application code
     """
-    name = input['name']
-    greeting = f'Hello {name}'
+    wokrflow_json = input['workflow_json']
+    workflow_input = input_m.store_workflow(runid, "wf.json", wokrflow_json)
+    file_path_list = input['file_path_list']
+    output = run_wf(workflow_input, file_path_list)
 
     return {
-        "greeting": greeting
+        "output": output
     }
 
 
@@ -20,7 +36,8 @@ def handler(event):
     """
     This is the handler function that will be called by RunPod serverless.
     """
-    return process_input(event['input'])
+    runid = event['runid']
+    return process_input(runid, event['input'])
 
 
 if __name__ == '__main__':
