@@ -1,12 +1,12 @@
+from .inf_serverless import ComfyRunnerServerless
 import runpod
 from .serverless_tools.input_manager import InputManager
-from .inf import ComfyRunner
 
 input_m = InputManager("/app/inputs")
 
 def run_wf(workflow_input, file_path_list):
 
-    runner = ComfyRunner()
+    runner = ComfyRunnerServerless()
     output = runner.predict(
         workflow_input,
         file_path_list,
